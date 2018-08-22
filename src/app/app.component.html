@@ -2,6 +2,10 @@
 <div style="text-align:center">
   <h1>Coach</h1>
 </div>
-<app-count-down></app-count-down>
-<app-workout-list></app-workout-list>
-
+<app-count-down   *ngIf="selectedWorkout!=null"
+                  (back)="clearSelected( )"
+                  ></app-count-down>
+<app-workout-list *ngIf="selectedWorkout==null"
+                  [workouts]="workouts"
+                  (selectedWorkout)="setSelected($event)"
+                  ></app-workout-list>

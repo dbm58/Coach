@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Workout }           from '../workouts/workout';
 import { WorkoutsService }   from '../workouts/workouts.service';
 
@@ -9,28 +9,13 @@ import { WorkoutsService }   from '../workouts/workouts.service';
 })
 export class WorkoutListComponent implements OnInit {
 
-  selectedWorkout: Workout;
+  @Output( ) selectedWorkout = new EventEmitter<Workout>( );
 
-  workouts: Workout[ ];
-
-  constructor(private workoutService: WorkoutsService) { }
-
-  ngOnInit( )
-  {
-    this.getWorkouts( );
-  }
-
-  getWorkouts(): void
-  {
-    this.workoutService
-        .getWorkouts()
-        .subscribe(workouts => this.workouts = workouts);
-  }
+  @Input( ) workouts: Workout[ ];
 
   onSelect(workout: Workout): void
   {
-    selectedWorkout = workout;
-  //alert( workout.name );
+    this.selectedWorkout.emit( workout );
   }
 }
 
